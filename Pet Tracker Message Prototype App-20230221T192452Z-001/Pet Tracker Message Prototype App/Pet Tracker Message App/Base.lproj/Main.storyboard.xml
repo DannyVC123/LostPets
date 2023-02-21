@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Pet_Tracker_Message_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="aj0-qM-uvP" userLabel="TextField">
+                                <rect key="frame" x="83" y="431" width="248" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="MessageTyped:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="t2M-Fv-7m3"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pet Tracker Message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.40000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="2a2-oV-mPH" userLabel="Title">
+                                <rect key="frame" x="52" y="44" width="310.5" height="93.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="39"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Insert message here. Limit 32 Characters. Please do not use ` in your message." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.40000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="tPk-gp-fDN" userLabel="Info">
+                                <rect key="frame" x="52" y="332.5" width="310.5" height="62.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Etl-Gd-Kq3" userLabel="Spacer">
+                                <rect key="frame" x="207" y="395" width="0.0" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="tertiarySystemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="aj0-qM-uvP" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.6" id="D5L-8g-l9N"/>
+                            <constraint firstItem="aj0-qM-uvP" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="EBn-dV-Qvx"/>
+                            <constraint firstItem="tPk-gp-fDN" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="LGe-q4-AUT"/>
+                            <constraint firstItem="Etl-Gd-Kq3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Wgl-3Q-pPO"/>
+                            <constraint firstItem="Etl-Gd-Kq3" firstAttribute="top" secondItem="tPk-gp-fDN" secondAttribute="bottom" id="Wjd-RH-d2V"/>
+                            <constraint firstItem="Etl-Gd-Kq3" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.04" id="Yeb-NI-sRr"/>
+                            <constraint firstItem="tPk-gp-fDN" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.07" id="d5B-DZ-ILh"/>
+                            <constraint firstItem="2a2-oV-mPH" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="e91-e6-crc"/>
+                            <constraint firstItem="aj0-qM-uvP" firstAttribute="top" secondItem="Etl-Gd-Kq3" secondAttribute="bottom" id="gid-He-Mjl"/>
+                            <constraint firstItem="2a2-oV-mPH" firstAttribute="height" secondItem="6Tk-OE-BBY" secondAttribute="height" multiplier="0.114303" id="hoE-cP-YP3"/>
+                            <constraint firstItem="tPk-gp-fDN" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.75" id="iCB-mG-mhX"/>
+                            <constraint firstItem="aj0-qM-uvP" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="mGB-Nc-HVh"/>
+                            <constraint firstItem="2a2-oV-mPH" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.75" id="nYZ-Qp-wPu"/>
+                            <constraint firstItem="2a2-oV-mPH" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="t6e-JU-AGC"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="MessageField" destination="aj0-qM-uvP" id="wBq-vj-nxN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="131.8840579710145" y="83.705357142857139"/>
+        </scene>
+        <!--Messages Table View Controller-->
+        <scene sceneID="gd0-vu-C9y">
+            <objects>
+                <tableViewController id="sRW-Eq-nJU" customClass="MessagesTableViewController" customModule="Pet_Tracker_Message_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="1Yq-AC-nlc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="bpP-Ja-SHc">
+                                <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bpP-Ja-SHc" id="pDH-X5-ece">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="sRW-Eq-nJU" id="dvh-cl-GKy"/>
+                            <outlet property="delegate" destination="sRW-Eq-nJU" id="kGu-gV-QSQ"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sPs-3B-g8R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="948" y="84"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="tertiarySystemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

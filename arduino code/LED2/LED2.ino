@@ -2,13 +2,16 @@
 
 //light sensor
 const int sensorPin = A0;
-int sensorLow = 1023, sensorHigh = 0;
+int sensorLow = 0, sensorHigh = 1023;
 int sensorValue;
 
 //led strip
 const int ledPin = 8; //one led
-//const int redPin = 0, greenPin = 0, bluePin = 0; //must be PWM pins
-//int redValue, greenValue, blueValue;
+const int greenPin = 10, redPin = 9, bluePin = 6; //must be PWM pins
+int redValue = 255, greenValue = 0, blueValue= 0;
+
+int sensorValues[10];
+int svI = 0;
 
 //lcd
 LiquidCrystal lcd(12, 11, 2, 3, 4, 5);
@@ -23,17 +26,19 @@ void setup() {
   Serial.begin(9600);
 
   //set up light sensor
-  sensorValue = analogRead(sensorPin);
-  if (sensorValue > sensorHigh) sensorHigh = sensorValue;
-  if (sensorValue < sensorLow) sensorLow = sensorValue;
+  //sensorValue = analogRead(sensorPin);
+  //if (sensorValue > sensorHigh) sensorHigh = sensorValue;
+  //if (sensorValue < sensorLow) sensorLow = sensorValue;
+  for (int i = 0; i < 10; i++) {
+    sensorValues[i] = 100;
+  }
+  
 
   //set up led strip
   pinMode(ledPin, OUTPUT); //one led
-  /*
   pinMode(redPin, OUTPUT);
   pinMode(greenPin, OUTPUT);
   pinMode(bluePin, OUTPUT);
-  */
 
   //set up LCD
   lcd.begin(16, 2);
@@ -56,23 +61,28 @@ void loop() {
 
 void detectLight() {
   sensorValue = analogRead(sensorPin);
+  sensorValues[svI] = sensorValue;
+  svI = (svI + 1) % 10;
+  
+  double average = 0;
+  for (int i = 0; i < 10; i++) {
+    average += sensorValues[i];
+  }
+  average /= 10.0;
+  
   Serial.println(sensorValue);
 
-  //one led
-  if (sensorValue < 100) digitalWrite(ledPin, HIGH);
-  else digitalWrite(ledPin, LOW);
-
-  /*
-  if (sensorValue < 100) {
-    analogWrite(redPin, redValue);
-    analogWrite(greenPin, greenValue);
-    analogWrite(bluePin, blueValue);
-  } else {
+  if (average > 200) {//sensorLow + (sensorHigh - sensorLow) * 0.1) {
+    digitalWrite(ledPin, LOW);
     analogWrite(redPin, 0);
     analogWrite(greenPin, 0);
     analogWrite(bluePin, 0);
+  } else {
+    digitalWrite(ledPin, HIGH);
+    analogWrite(redPin, redValue);
+    analogWrite(greenPin, greenValue);
+    analogWrite(bluePin, blueValue);
   }
-  */
 }
 
 void updateLCD() {

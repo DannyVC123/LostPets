@@ -7,8 +7,15 @@ void setup() {
   Serial.begin(9600);
   Serial.println("HM10 serial started at 9600");
   bluetooth.begin(9600); // set HM10 serial at 9600 baud rate
-  pinMode(13, OUTPUT); // onboard LED
-  digitalWrite(13, LOW); // switch OFF LED
+  delay(1000);
+
+  bluetooth.println("AT+ROLE0");
+  delay(1000);
+
+  while (bluetooth.available()) {
+    Serial.write(bluetooth.read());
+    Serial.println("set");
+  }
 }
 
 void loop() {

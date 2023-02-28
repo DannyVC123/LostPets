@@ -1,7 +1,7 @@
 #include <LiquidCrystal.h>
 
 //light sensor
-const int sensorPin = A0;
+const int sensorPin = A5;
 int sensorLow = 0, sensorHigh = 1023;
 int sensorValue;
 
@@ -9,9 +9,6 @@ int sensorValue;
 const int ledPin = 8; //one led
 const int greenPin = 10, redPin = 9, bluePin = 6; //must be PWM pins
 int redValue = 255, greenValue = 0, blueValue= 0;
-
-int sensorValues[10];
-int svI = 0;
 
 //lcd
 LiquidCrystal lcd(12, 11, 2, 3, 4, 5);
@@ -26,12 +23,9 @@ void setup() {
   Serial.begin(9600);
 
   //set up light sensor
-  //sensorValue = analogRead(sensorPin);
-  //if (sensorValue > sensorHigh) sensorHigh = sensorValue;
-  //if (sensorValue < sensorLow) sensorLow = sensorValue;
-  for (int i = 0; i < 10; i++) {
-    sensorValues[i] = 100;
-  }
+  sensorValue = analogRead(sensorPin);
+  if (sensorValue > sensorHigh) sensorHigh = sensorValue;
+  if (sensorValue < sensorLow) sensorLow = sensorValue;
   
 
   //set up led strip
@@ -61,18 +55,9 @@ void loop() {
 
 void detectLight() {
   sensorValue = analogRead(sensorPin);
-  sensorValues[svI] = sensorValue;
-  svI = (svI + 1) % 10;
-  
-  double average = 0;
-  for (int i = 0; i < 10; i++) {
-    average += sensorValues[i];
-  }
-  average /= 10.0;
-  
   Serial.println(sensorValue);
 
-  if (average > 200) {//sensorLow + (sensorHigh - sensorLow) * 0.1) {
+  if (sensorValue > 100) {//sensorLow + (sensorHigh - sensorLow) * 0.1) {
     digitalWrite(ledPin, LOW);
     analogWrite(redPin, 0);
     analogWrite(greenPin, 0);

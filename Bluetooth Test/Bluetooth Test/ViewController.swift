@@ -27,11 +27,13 @@ class ViewController: UIViewController, UITextFieldDelegate, BluetoothSerialDele
 
     @IBAction func MessageTyped(_ sender: UITextField) {
         if (MessageField.text!.count > 32){
-            alert = UIAlertController(title: "Warning", message: "Message is over 32 characters.", preferredStyle: UIAlertController.Style.alert)
+            alert = UIAlertController(title: "Warning", message: "Message is over 32 characters.", 
+            preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }else if ((MessageField.text?.contains("`")) == true){
-            alert = UIAlertController(title: "Warning", message: "Message contains ` plese remove.", preferredStyle: UIAlertController.Style.alert)
+            alert = UIAlertController(title: "Warning", message: "Message contains ` plese remove.", 
+            preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         } else {

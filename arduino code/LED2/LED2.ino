@@ -57,7 +57,7 @@ void detectLight() {
   sensorValue = analogRead(sensorPin);
   Serial.println(sensorValue);
 
-  if (sensorValue > 100) {//sensorLow + (sensorHigh - sensorLow) * 0.1) {
+  if (sensorValue > 80) {//sensorLow + (sensorHigh - sensorLow) * 0.1) {
     digitalWrite(ledPin, LOW);
     analogWrite(redPin, 0);
     analogWrite(greenPin, 0);

@@ -137,23 +137,19 @@ void add(int i, String text) {
   
   if (delimInd == -1) {
     for (int j = listSize - 1; j >= i; j--) {
-      Serial.println(textList[j]);
       textList[j + 1] = textList[j];
-      Serial.println(textList[j+1]);
     }
-    Serial.println(textList[i]);
     textList[i] = text;
-    Serial.println(textList[i]);
     listSize++;
     return;
   }
   
   int numDelims = 1;
   for (int j = delimInd + 1; j < text.length(); j++) {
-    if (text.charAt(i) == '`') numDelims++;
+    if (text.charAt(j) == '`') numDelims++;
   }
   for (int j = listSize - 1; j >= i; j--) {
-    textList[i + numDelims + 1] = textList[i];
+    textList[j + numDelims + 1] = textList[j];
   }
   
   while (delimInd > -1) {
@@ -161,23 +157,35 @@ void add(int i, String text) {
     text = text.substring(delimInd + 1);
     delimInd = text.indexOf('`');
   }
-  textList[listSize++] = text;
+  textList[i] = text;
+  
+  listSize += numDelims + 1;
 }
 
-String get(int i) {
-  return textList[i];
+String set (int i, String text) {
+  if (i < 0 || i >= listSize)
+    return "";
+  
+  Serial.println(i + " " + text);
+  String ret = get(i);
+  textList[i] = text;
+  return ret;
 }
 
 String remove(int i) {
-  if (i < 0 || i > listSize)
-    return;
-  String ret = textList[i];
-  textList[i] = "";
+  if (i < 0 || i >= listSize)
+    return "";
   
-  for (int j = listSize; j > i; j++) {
-    textList[j - 1] = textList[j];
+  String ret = textList[i];
+  int j = i;
+  for (int j = i; j < listSize; j++) {
+    textList[j] = textList[j + 1];
   }
   
   listSize--;
   return ret;
+}
+
+String get(int i) {
+  return textList[i];
 }

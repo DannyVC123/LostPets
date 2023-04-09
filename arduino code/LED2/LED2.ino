@@ -11,7 +11,7 @@ const int greenPin = 10, redPin = 9, bluePin = 6; //must be PWM pins
 int redValue = 255, greenValue = 0, blueValue= 0;
 
 //lcd
-LiquidCrystal lcd(12, 11, 2, 3, 4, 5);
+LiquidCrystal lcd(9, 8, 5, 4, 3, 2);
 unsigned long previousTimeLCDChange = millis();
 long LCDChangeTimeInterval = 2000;
 

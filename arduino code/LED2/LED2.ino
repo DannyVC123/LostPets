@@ -71,14 +71,36 @@ void detectLight() {
 }
 
 void updateLCD() {
-  String currText = get(textListCurrInd);
-  int lastInd = currText.lastIndexOf(' ', 15);
-  
   lcd.clear();
-  lcd.print(currText.substring(0, lastInd));
   
-  lcd.setCursor(0, 1);
-  lcd.print(currText.substring(lastInd + 1));
+  String currText = get(textListCurrInd);
+  if (currText.length() <= 16) {
+    lcd.print(currText.substring(0, 16));
+    textListCurrInd = (textListCurrInd + 1) % listSize;
+    return;
+  }
+  
+  int lastInd = currText.lastIndexOf(' ', 16);
+  for (int i = 15; i > lastInd && i > 0; i--) {
+    if (!isPunct(currText.charAt(i))) continue;
+    lastInd = i;
+    break;
+  }
+  
+  if (lastInd == -1) {
+    lcd.print(currText.substring(0, 16));
+    lcd.setCursor(0, 1);
+    lcd.print(currText.substring(16));
+  } else if (currText.charAt(lastInd) == ' ') {
+    lcd.print(currText.substring(0, lastInd));
+    lcd.setCursor(0, 1);
+    lcd.print(currText.substring(lastInd + 1));
+  } else {
+    lcd.print(currText.substring(0, lastInd + 1));
+    lcd.setCursor(0, 1);
+    bool nextSpace = lastInd + 1 < currText.length() && currText.charAt(lastInd + 1) == ' ';
+    lcd.print(currText.substring(lastInd + (nextSpace ? 2 : 1)));
+  }
   
   textListCurrInd = (textListCurrInd + 1) % listSize;
 }
@@ -88,6 +110,57 @@ void updateLCD() {
 //----------Array List Implementation----------
 
 void add(String text) {
+  int delimInd = text.indexOf('`');
+  
+  if (delimInd == -1) {
+    textList[listSize++] = text;
+    return;
+  }
+  
+  while (delimInd > -1) {
+    textList[listSize++] = text.substring(0, delimInd);
+    text = text.substring(delimInd + 1);
+    delimInd = text.indexOf('`');
+  }
+  textList[listSize++] = text;
+}
+
+void add(int i, String text) {
+  if (i < 0 || i > listSize)
+    return;
+  if (i == listSize) {
+    add(text);
+    return;
+  }
+  
+  int delimInd = text.indexOf('`');
+  
+  if (delimInd == -1) {
+    for (int j = listSize - 1; j >= i; j--) {
+      Serial.println(textList[j]);
+      textList[j + 1] = textList[j];
+      Serial.println(textList[j+1]);
+    }
+    Serial.println(textList[i]);
+    textList[i] = text;
+    Serial.println(textList[i]);
+    listSize++;
+    return;
+  }
+  
+  int numDelims = 1;
+  for (int j = delimInd + 1; j < text.length(); j++) {
+    if (text.charAt(i) == '`') numDelims++;
+  }
+  for (int j = listSize - 1; j >= i; j--) {
+    textList[i + numDelims + 1] = textList[i];
+  }
+  
+  while (delimInd > -1) {
+    textList[i++] = text.substring(0, delimInd);
+    text = text.substring(delimInd + 1);
+    delimInd = text.indexOf('`');
+  }
   textList[listSize++] = text;
 }
 
@@ -95,15 +168,16 @@ String get(int i) {
   return textList[i];
 }
 
-void remove(int i) {
+String remove(int i) {
+  if (i < 0 || i > listSize)
+    return;
   String ret = textList[i];
   textList[i] = "";
   
-  int x = i + 1;
-  while (textList[x] != "") {
-    textList[x - 1] = textList[x++];
+  for (int j = listSize; j > i; j++) {
+    textList[j - 1] = textList[j];
   }
-  textList[x-1] = "";
-
+  
+  listSize--;
   return ret;
 }

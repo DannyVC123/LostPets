@@ -1,4 +1,4 @@
-#include <LiquidCrystal.h>
+#include <LiquidCrystal_I2C.h>
 
 //light sensor
 const int sensorPin = A5;
@@ -7,13 +7,14 @@ int sensorValue;
 
 //led strip
 const int ledPin = 8; //one led
-const int greenPin = 10, redPin = 9, bluePin = 6; //must be PWM pins
-int redValue = 255, greenValue = 0, blueValue= 0;
+const int greenPin = 12, redPin = 11, bluePin = 10; //must be PWM pins
+int redValue = 0, greenValue = 255, blueValue = 255;
 
 //lcd
-LiquidCrystal lcd(9, 8, 5, 4, 3, 2);
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+//LiquidCrystal lcd(9, 8, 5, 4, 3, 2);
 unsigned long previousTimeLCDChange = millis();
-long LCDChangeTimeInterval = 2000;
+long LCDChangeTimeInterval = 5000;
 
 //text on lcd
 String textList[100];
@@ -35,10 +36,14 @@ void setup() {
   pinMode(bluePin, OUTPUT);
 
   //set up LCD
-  lcd.begin(16, 2);
+  lcd.init();
+  lcd.clear();
+  lcd.backlight();
+
+  //add messages
   add("Pet Name: Bailey");
   add("Owner Name: Danny Huo");
-  add("Address: 9889 Wade Blvd, Frisco, TX 75035");
+  add("Address: 9889 Wade Blvd");
   add("Phone Number: 469-123-1234");
 }
 
@@ -57,7 +62,7 @@ void detectLight() {
   sensorValue = analogRead(sensorPin);
   Serial.println(sensorValue);
 
-  if (sensorValue > 80) {//sensorLow + (sensorHigh - sensorLow) * 0.1) {
+  if (sensorValue > 80) {
     digitalWrite(ledPin, LOW);
     analogWrite(redPin, 0);
     analogWrite(greenPin, 0);
